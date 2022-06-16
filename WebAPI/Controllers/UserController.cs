@@ -16,8 +16,8 @@ public class UserController : ControllerBase
         
     }
 
-    [HttpPost]
-    public async Task CreateUser() {
-        
+    [HttpPost("AddUser")]
+    public async Task<User> PostUser(User newUser) {
+        return await _db.CreateUser(newUser);
     }
 }

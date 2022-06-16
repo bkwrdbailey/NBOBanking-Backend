@@ -16,9 +16,9 @@ public class BankAccountController : ControllerBase
         
     }
 
-    [HttpPost]
-    public async Task CreateBankAccount() {
-        
+    [HttpPost("AddBankAccount")]
+    public async Task<BankAccount> PostBankAccount(BankAccount newBankAcc) {
+        return await _db.CreateBankAcc(newBankAcc);
     }
 
 }

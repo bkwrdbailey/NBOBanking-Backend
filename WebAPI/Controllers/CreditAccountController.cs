@@ -16,8 +16,8 @@ public class CreditAccountController : ControllerBase
         
     }
 
-    [HttpPost]
-    public async Task CreateCreditAccount() {
-        
+    [HttpPost("AddCreditAccount")]
+    public async Task<CreditAccount> PostCreditAccount(CreditAccount newCreditAcc) {
+        return await _db.CreateCreditAcc(newCreditAcc);
     }
 }

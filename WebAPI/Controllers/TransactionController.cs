@@ -11,13 +11,13 @@ public class TransactionController : ControllerBase
         _db = db;
     }
 
-    [HttpGet]
-    public async Task GetTransaction() {
-        
+    [HttpGet("GetAllTransactions/{accountId}")]
+    public async Task<List<Transaction>> GetAllAccountTransactions(int accountId) {
+        return await _db.GetAllTransactions(accountId);
     }
 
-    [HttpPost]
-    public async Task CreateTransaction() {
-        
+    [HttpPost("AddTransaction")]
+    public async Task PostTransaction(Transaction newTransaction) {
+        await _db.CreateTransaction(newTransaction);
     }
 }

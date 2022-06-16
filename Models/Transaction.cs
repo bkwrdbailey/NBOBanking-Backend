@@ -6,4 +6,5 @@ public class Transaction {
     public double amount { get; set; }
     public DateTime date { get; set; }
     public string type { get; set; }
+    public string description { get; set; }
 }
