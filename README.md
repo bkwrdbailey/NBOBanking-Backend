@@ -11,21 +11,21 @@ The backend service for a banking application called No Better Option Banking. T
 - I can see a purchase history/bank statement
 
 ## Tech Stack
-•	C# 10
-•	.Net Core (.Net 6)
-•	ADO.Net
-•	EF Core
-•	ASP.Net
-•	Azure Services
+- C# 10
+- .Net Core (.Net 6)
+- ADO.Net
+- EF Core
+- ASP.Net
+- Azure Services
 
 #### *Testing*:
-•	xUnit
-•	Moq
+- xUnit
+- Moq
 
 #### *DevOps*:
-•	Docker
-•	GitHub Actions
-•	Azure Cloud Services
+- Docker
+- GitHub Actions
+- Azure Cloud Services
 
 ## Entity Relationship Diagram
 
