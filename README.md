@@ -16,4 +16,4 @@
 - User will receive an email each time they deposit, withdraw, or transfer
 
 ## Entity Relationship Diagram
-[NBOBanking Entity Relationship Diagram](./NBOBanking ERD)
+[NBOBanking Entity Relationship Diagram](./NBOBanking ERD.jpg)
