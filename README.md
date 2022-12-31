@@ -14,3 +14,6 @@
 - User can withdraw money
 - User can transfer money between accounts (ex. Checking to Savings)
 - User will receive an email each time they deposit, withdraw, or transfer
+
+## Entity Relationship Diagram
+[NBOBanking Entity Relationship Diagram](./NBOBanking ERD)
