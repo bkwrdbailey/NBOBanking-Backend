@@ -32,8 +32,8 @@ public class BankingController {
         return _service.attemptToUpdateAccountBalance(newAccountBalance);
     }
 
-    /* /New/Bankaccount (BankAccount object) */
-    @PostMapping("New/Bankaccount")
+    /* /New/BankAccount (BankAccount object) */
+    @PostMapping("New/BankAccount")
     @ResponseBody
     public BankAccount createNewBankAccount(@RequestBody BankAccount newBankAccount)
     {
