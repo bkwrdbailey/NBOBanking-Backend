@@ -16,14 +16,14 @@ public class UserController {
     /* /Login?username={input one}&password={input two} */
     @GetMapping("Login")
     @ResponseBody
-    public boolean attemptToLogin(@RequestParam String username, @RequestParam String password) {
+    public User attemptToLogin(@RequestParam String username, @RequestParam String password) {
         return _service.verifyUserLogin(username, password);
     }
 
     /* /Signup (HTTP Request Body) */
     @PostMapping("Signup")
     @ResponseBody
-    public boolean attemptToSignUp(@RequestBody User newUser) {
+    public User attemptToSignUp(@RequestBody User newUser) {
         return _service.attemptNewUserRecord(newUser);
     }
 }

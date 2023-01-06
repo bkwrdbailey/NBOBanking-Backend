@@ -2,36 +2,38 @@ package com.NBOBanking.services;
 
 import com.NBOBanking.models.BankAccount;
 import com.NBOBanking.models.Transaction;
+import com.NBOBanking.repositories.IBankingRepository;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class BankingService implements IBankingService{
-    public BankingService() {
-
+    private IBankingRepository _repo;
+    public BankingService(IBankingRepository repo) {
+        _repo = repo;
     }
 
     @Override
-    public ArrayList<BankAccount> getUsersAccounts(int userId) {
-        return null;
+    public List<BankAccount> getUsersAccounts(int userId) {
+        return _repo.getBankAccounts(userId);
     }
 
     @Override
     public BankAccount attemptToCreateNewBankAccount(BankAccount newBankAccount) {
-        return null;
+        return _repo.createBankAccountRecord(newBankAccount);
     }
 
     @Override
-    public ArrayList<Transaction> getTransactionHistory(int bankAccountId) {
-        return null;
+    public List<Transaction> getTransactionHistory(int bankAccountId) {
+        return _repo.getBankTransactions(bankAccountId);
     }
 
     @Override
     public boolean attemptToCreateNewTransactionRecord(Transaction newTransaction) {
-        return false;
+        return _repo.createTransactionRecord(newTransaction);
     }
 
     @Override
     public boolean attemptToUpdateAccountBalance(BankAccount newAccountBalance) {
-        return false;
+        return _repo.updateBankAccountBalance(newAccountBalance);
     }
 }

@@ -2,38 +2,55 @@ package com.NBOBanking.services;
 
 import com.NBOBanking.models.User;
 import com.NBOBanking.models.UserDB;
-import com.NBOBanking.repositories.UserRepository;
+import com.NBOBanking.repositories.IUserRepository;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
 public class UserService implements IUserService {
-    private UserRepository _repo;
-    public UserService(UserRepository repo) {
+    private IUserRepository _repo;
+    public UserService(IUserRepository repo) {
         _repo = repo;
     }
 
     @Override
-    public boolean verifyUserLogin(String username, String password) {
+    public User verifyUserLogin(String username, String password) {
         // Check if user exists in database
+        UserDB checkUser = _repo.getUserRecord(username);
 
-        return false;
+        if(checkUser != null) {
+            if(hashFactory(password + checkUser.salt) == checkUser.password) {
+                User userData = new User();
+
+                userData.user_id = checkUser.user_id;
+                userData.username = checkUser.username;
+                userData.password = "";
+                userData.email = checkUser.email;
+                userData.firstname = checkUser.firstname;
+                userData.lastname = checkUser.lastname;
+
+                return userData;
+            }
+        }
+
+        return new User();
     }
 
     @Override
-    public boolean attemptNewUserRecord(User newUser) {
+    public User attemptNewUserRecord(User newUser) {
         // Check if user already exists in database
         UserDB checkUser = _repo.getUserRecord(newUser.username);
+
         // Add user to database
-        if(checkUser != null)
+        if(checkUser == null)
         {
             UserDB newUserDB = new UserDB();
             newUserDB.username = newUser.username;
             newUserDB.salt = saltJar();
 
             if(hashFactory(newUser.password + newUserDB.salt) == "failed") {
-                return false;
+                return new User();
             } else {
                 newUserDB.password = hashFactory(newUser.password + newUserDB.salt);
                 newUserDB.email = newUser.email;
@@ -41,10 +58,15 @@ public class UserService implements IUserService {
                 newUserDB.lastname = newUser.lastname;
             }
 
-            return _repo.createUserRecord(newUserDB);
+            checkUser = _repo.createUserRecord(newUserDB);
+
+            newUser.user_id = checkUser.user_id;
+            newUser.password = "";
+
+            return newUser;
         }
 
-        return false;
+        return new User();
     }
 
     private String saltJar() {
