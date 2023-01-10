@@ -1,8 +1,11 @@
 # NBOBanking-Backend
 
+Link To Frontend NBOBanking Service: https://github.com/bkwrdbailey/NBOBanking-Frontend
+
 ## Tech Stack:
-- Java 19
-- Spring
+- Java 17
+- Hibernate/JPA
+- Spring boot
 - AWS Services
   * Relational Database Service
   * Simple Email Service
