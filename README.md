@@ -1,6 +1,6 @@
 # NBOBanking-Backend
 
-Link To Frontend NBOBanking Serivce: https://github.com/bkwrdbailey/NBOBanking-Frontend
+Link To Frontend NBOBanking Service: https://github.com/bkwrdbailey/NBOBanking-Frontend
 
 ## Tech Stack:
 - Java 17
