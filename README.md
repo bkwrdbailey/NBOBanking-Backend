@@ -1,8 +1,9 @@
 # NBOBanking-Backend
 
 ## Tech Stack:
-- Java 19
-- Spring
+- Java 17
+- Hibernate/JPA
+- Spring boot
 - AWS Services
   * Relational Database Service
   * Simple Email Service
