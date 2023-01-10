@@ -2,10 +2,10 @@ package com.NBOBanking.controllers;
 
 import com.NBOBanking.models.User;
 import com.NBOBanking.services.IUserService;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
+@RequestMapping("api/user/")
 public class UserController {
     private IUserService _service;
 
@@ -14,14 +14,14 @@ public class UserController {
     }
 
     /* /Login?username={input one}&password={input two} */
-    @GetMapping("Login")
+    @GetMapping("login")
     @ResponseBody
     public User attemptToLogin(@RequestParam String username, @RequestParam String password) {
         return _service.verifyUserLogin(username, password);
     }
 
     /* /Signup (HTTP Request Body) */
-    @PostMapping("Signup")
+    @PostMapping("signup")
     @ResponseBody
     public User attemptToSignUp(@RequestBody User newUser) {
         return _service.attemptNewUserRecord(newUser);

@@ -3,12 +3,12 @@ package com.NBOBanking.controllers;
 import com.NBOBanking.models.BankAccount;
 import com.NBOBanking.models.Transaction;
 import com.NBOBanking.services.IBankingService;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping("api/banking/")
 public class BankingController {
     private IBankingService _service;
 
@@ -17,7 +17,7 @@ public class BankingController {
     }
 
     /* /BankAccounts?userId={User's Bank Account id} */
-    @GetMapping("BankAccounts")
+    @GetMapping("bankaccounts")
     @ResponseBody
     public List<BankAccount> getBankAccounts(@RequestParam int userId)
     {
@@ -25,7 +25,7 @@ public class BankingController {
     }
 
     /* /Update/Amount (BankAccount object) */
-    @PutMapping("Update/Amount")
+    @PutMapping("update/amount")
     @ResponseBody
     public boolean updateBankAccountBalance(@RequestBody BankAccount newAccountBalance)
     {
@@ -33,7 +33,7 @@ public class BankingController {
     }
 
     /* /New/BankAccount (BankAccount object) */
-    @PostMapping("New/BankAccount")
+    @PostMapping("new/bankaccount")
     @ResponseBody
     public BankAccount createNewBankAccount(@RequestBody BankAccount newBankAccount)
     {
@@ -41,7 +41,7 @@ public class BankingController {
     }
 
     /* /New/Transaction (Transaction object) */
-    @PostMapping("New/Transaction")
+    @PostMapping("new/transaction")
     @ResponseBody
     public boolean createTransactionRecord(@RequestBody Transaction newTransaction)
     {
@@ -49,7 +49,7 @@ public class BankingController {
     }
 
     /* /Account/Transactions?bankaccountId={Chosen Bank account's id} */
-    @GetMapping("Account/Transactions")
+    @GetMapping("account/transactions")
     @ResponseBody
     public List<Transaction> getBankAccountTransactionHistory(@RequestParam int bankaccountId)
     {

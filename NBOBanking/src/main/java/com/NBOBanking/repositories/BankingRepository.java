@@ -4,9 +4,6 @@ import com.NBOBanking.models.BankAccount;
 import com.NBOBanking.models.Transaction;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import java.util.List;
 
@@ -15,8 +12,6 @@ public class BankingRepository implements IBankingRepository {
     private EntityManagerFactory emFactory;
 
     public boolean createTransactionRecord(Transaction newTransaction) {
-        final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-        emFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
 
         EntityManager em = emFactory.createEntityManager();
         em.getTransaction().begin();
@@ -31,8 +26,6 @@ public class BankingRepository implements IBankingRepository {
     }
 
     public BankAccount createBankAccountRecord(BankAccount newBankAccount) {
-        final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-        emFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
 
         EntityManager em = emFactory.createEntityManager();
         em.getTransaction().begin();
@@ -47,8 +40,6 @@ public class BankingRepository implements IBankingRepository {
     }
 
     public List<Transaction> getBankTransactions(int bankAccountId) {
-        final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-        emFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
 
         EntityManager em = emFactory.createEntityManager();
         em.getTransaction().begin();
@@ -63,8 +54,6 @@ public class BankingRepository implements IBankingRepository {
     }
 
     public List<BankAccount> getBankAccounts(int userId) {
-        final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-        emFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
 
         EntityManager em = emFactory.createEntityManager();
         em.getTransaction().begin();
@@ -79,8 +68,6 @@ public class BankingRepository implements IBankingRepository {
     }
 
     public boolean updateBankAccountBalance(BankAccount updatedBalance) {
-        final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-        emFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
 
         EntityManager em = emFactory.createEntityManager();
         BankAccount bankAccount = em.find(BankAccount.class, updatedBalance.bankaccount_id);
