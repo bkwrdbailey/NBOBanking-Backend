@@ -11,6 +11,9 @@ public class BankAccount {
     @Column(name = "bankaccount_id", nullable = false)
     public Integer bankaccount_id;
 
+    @Column(name = "account_num")
+    public int account_num;
+
     @Column(name = "user_id")
     public int user_id;
 
