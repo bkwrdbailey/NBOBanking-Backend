@@ -2,13 +2,15 @@ package com.NBOBanking.controllers;
 
 import com.NBOBanking.models.User;
 import com.NBOBanking.services.IUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/user/")
+@RequestMapping(path = "api/user/")
 public class UserController {
-    private IUserService _service;
+    private final IUserService _service;
 
+    @Autowired
     public UserController(IUserService service) {
         _service = service;
     }

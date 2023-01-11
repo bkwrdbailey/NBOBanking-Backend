@@ -3,13 +3,18 @@ package com.NBOBanking.services;
 import com.NBOBanking.models.User;
 import com.NBOBanking.models.UserDB;
 import com.NBOBanking.repositories.IUserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
+@Service
 public class UserService implements IUserService {
-    private IUserRepository _repo;
+    private final IUserRepository _repo;
+
+    @Autowired
     public UserService(IUserRepository repo) {
         _repo = repo;
     }

@@ -3,11 +3,16 @@ package com.NBOBanking.services;
 import com.NBOBanking.models.BankAccount;
 import com.NBOBanking.models.Transaction;
 import com.NBOBanking.repositories.IBankingRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class BankingService implements IBankingService{
-    private IBankingRepository _repo;
+    private final IBankingRepository _repo;
+
+    @Autowired
     public BankingService(IBankingRepository repo) {
         _repo = repo;
     }

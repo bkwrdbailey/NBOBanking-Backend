@@ -3,7 +3,9 @@ package com.NBOBanking.repositories;
 import com.NBOBanking.models.UserDB;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class UserRepository implements IUserRepository {
 
     private EntityManagerFactory emFactory;

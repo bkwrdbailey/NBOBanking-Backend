@@ -4,9 +4,11 @@ import com.NBOBanking.models.BankAccount;
 import com.NBOBanking.models.Transaction;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class BankingRepository implements IBankingRepository {
     
     private EntityManagerFactory emFactory;

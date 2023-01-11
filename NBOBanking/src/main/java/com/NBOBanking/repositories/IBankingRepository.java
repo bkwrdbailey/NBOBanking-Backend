@@ -2,9 +2,11 @@ package com.NBOBanking.repositories;
 
 import com.NBOBanking.models.BankAccount;
 import com.NBOBanking.models.Transaction;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface IBankingRepository {
     boolean createTransactionRecord(Transaction newTransaction);
     BankAccount createBankAccountRecord(BankAccount newBankAccount);

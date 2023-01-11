@@ -3,15 +3,17 @@ package com.NBOBanking.controllers;
 import com.NBOBanking.models.BankAccount;
 import com.NBOBanking.models.Transaction;
 import com.NBOBanking.services.IBankingService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("api/banking/")
+@RequestMapping(path = "api/banking/")
 public class BankingController {
-    private IBankingService _service;
+    private final IBankingService _service;
 
+    @Autowired
     public BankingController(IBankingService service) {
         _service = service;
     }
