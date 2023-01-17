@@ -1,7 +1,7 @@
 package com.NBOBanking.services;
 
-import com.NBOBanking.models.User;
-import com.NBOBanking.models.UserDB;
+import com.NBOBanking.DTO.UserDTO;
+import com.NBOBanking.Entities.User;
 import com.NBOBanking.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,42 +20,34 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User verifyUserLogin(String username, String password) {
+    public UserDTO verifyUserLogin(String username, String password) {
         // Check if user exists in database
-        UserDB checkUser = _repo.getUserRecord(username);
+        User checkUser = _repo.getUserRecord(username);
 
         if(checkUser != null) {
             if(hashFactory(password + checkUser.salt) == checkUser.password) {
-                User userData = new User();
-
-                userData.user_id = checkUser.user_id;
-                userData.username = checkUser.username;
-                userData.password = "";
-                userData.email = checkUser.email;
-                userData.firstname = checkUser.firstname;
-                userData.lastname = checkUser.lastname;
-
+                UserDTO userData = new UserDTO(checkUser.user_id, checkUser.firstname, checkUser.lastname, checkUser.username, checkUser.password, checkUser.email);
                 return userData;
             }
         }
 
-        return new User();
+        return new UserDTO();
     }
 
     @Override
-    public User attemptNewUserRecord(User newUser) {
+    public UserDTO attemptNewUserRecord(UserDTO newUser) {
         // Check if user already exists in database
-        UserDB checkUser = _repo.getUserRecord(newUser.username);
+        User checkUser = _repo.getUserRecord(newUser.username);
 
         // Add user to database
         if(checkUser == null)
         {
-            UserDB newUserDB = new UserDB();
+            User newUserDB = new User();
             newUserDB.username = newUser.username;
             newUserDB.salt = saltJar();
 
             if(hashFactory(newUser.password + newUserDB.salt) == "failed") {
-                return new User();
+                return new UserDTO();
             } else {
                 newUserDB.password = hashFactory(newUser.password + newUserDB.salt);
                 newUserDB.email = newUser.email;
@@ -71,7 +63,7 @@ public class UserService implements IUserService {
             return newUser;
         }
 
-        return new User();
+        return new UserDTO();
     }
 
     private String saltJar() {

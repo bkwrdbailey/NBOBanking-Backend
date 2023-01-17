@@ -1,10 +1,10 @@
-package com.NBOBanking.models;
+package com.NBOBanking.Entities;
 
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Users")
-public class UserDB {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,4 +28,18 @@ public class UserDB {
 
     @Column(name = "salt")
     public String salt;
+
+    public User() {
+
+    }
+
+    public User(Integer user_id, String firstname, String lastname, String username, String password, String email, String salt) {
+        this.user_id = user_id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.salt = salt;
+    }
 }

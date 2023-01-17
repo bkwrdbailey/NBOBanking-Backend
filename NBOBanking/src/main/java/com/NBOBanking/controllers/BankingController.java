@@ -1,7 +1,7 @@
 package com.NBOBanking.controllers;
 
-import com.NBOBanking.models.BankAccount;
-import com.NBOBanking.models.Transaction;
+import com.NBOBanking.DTO.BankAccountDTO;
+import com.NBOBanking.DTO.TransactionDTO;
 import com.NBOBanking.services.IBankingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +21,7 @@ public class BankingController {
     /* /BankAccounts?userId={User's Bank Account id} */
     @GetMapping("bankaccounts")
     @ResponseBody
-    public List<BankAccount> getBankAccounts(@RequestParam int userId)
+    public List<BankAccountDTO> getBankAccounts(@RequestParam int userId)
     {
         return _service.getUsersAccounts(userId);
     }
@@ -29,7 +29,7 @@ public class BankingController {
     /* /Update/Amount (BankAccount object) */
     @PutMapping("update/amount")
     @ResponseBody
-    public boolean updateBankAccountBalance(@RequestBody BankAccount newAccountBalance)
+    public boolean updateBankAccountBalance(@RequestBody BankAccountDTO newAccountBalance)
     {
         return _service.attemptToUpdateAccountBalance(newAccountBalance);
     }
@@ -37,7 +37,7 @@ public class BankingController {
     /* /New/BankAccount (BankAccount object) */
     @PostMapping("new/bankaccount")
     @ResponseBody
-    public BankAccount createNewBankAccount(@RequestBody BankAccount newBankAccount)
+    public BankAccountDTO createNewBankAccount(@RequestBody BankAccountDTO newBankAccount)
     {
         return _service.attemptToCreateNewBankAccount(newBankAccount);
     }
@@ -45,7 +45,7 @@ public class BankingController {
     /* /New/Transaction (Transaction object) */
     @PostMapping("new/transaction")
     @ResponseBody
-    public boolean createTransactionRecord(@RequestBody Transaction newTransaction)
+    public boolean createTransactionRecord(@RequestBody TransactionDTO newTransaction)
     {
         return _service.attemptToCreateNewTransactionRecord(newTransaction);
     }
@@ -53,7 +53,7 @@ public class BankingController {
     /* /Account/Transactions?bankaccountId={Chosen Bank account's id} */
     @GetMapping("account/transactions")
     @ResponseBody
-    public List<Transaction> getBankAccountTransactionHistory(@RequestParam int bankaccountId)
+    public List<TransactionDTO> getBankAccountTransactionHistory(@RequestParam int bankaccountId)
     {
         return _service.getTransactionHistory(bankaccountId);
     }

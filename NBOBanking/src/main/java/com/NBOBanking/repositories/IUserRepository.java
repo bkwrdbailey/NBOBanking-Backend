@@ -1,10 +1,10 @@
 package com.NBOBanking.repositories;
 
-import com.NBOBanking.models.UserDB;
+import com.NBOBanking.Entities.User;
 import org.springframework.stereotype.Service;
 
 @Service
 public interface IUserRepository {
-    UserDB getUserRecord(String username);
-    UserDB createUserRecord(UserDB newUser);
+    User getUserRecord(String username);
+    User createUserRecord(User newUser);
 }

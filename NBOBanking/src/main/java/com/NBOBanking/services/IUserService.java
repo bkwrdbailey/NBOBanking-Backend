@@ -1,8 +1,8 @@
 package com.NBOBanking.services;
 
-import com.NBOBanking.models.User;
+import com.NBOBanking.DTO.UserDTO;
 
 public interface IUserService {
-    User verifyUserLogin(String username, String password);
-    User attemptNewUserRecord(User newUser);
+    UserDTO verifyUserLogin(String username, String password);
+    UserDTO attemptNewUserRecord(UserDTO newUser);
 }

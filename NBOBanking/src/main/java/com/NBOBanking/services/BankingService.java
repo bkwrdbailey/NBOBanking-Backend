@@ -1,12 +1,16 @@
 package com.NBOBanking.services;
 
-import com.NBOBanking.models.BankAccount;
-import com.NBOBanking.models.Transaction;
+import com.NBOBanking.DTO.BankAccountDTO;
+import com.NBOBanking.DTO.TransactionDTO;
+import com.NBOBanking.Entities.BankAccount;
+import com.NBOBanking.Entities.Transaction;
 import com.NBOBanking.repositories.IBankingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class BankingService implements IBankingService{
@@ -18,27 +22,59 @@ public class BankingService implements IBankingService{
     }
 
     @Override
-    public List<BankAccount> getUsersAccounts(int userId) {
-        return _repo.getBankAccounts(userId);
+    public List<BankAccountDTO> getUsersAccounts(int userId) {
+        List<BankAccount> bankAccountsDB = _repo.getBankAccounts(userId);
+
+        List<BankAccountDTO> bankAccounts = new ArrayList<>();
+
+        for(BankAccount account : bankAccountsDB) {
+            BankAccountDTO accountDTO = new BankAccountDTO(account.bankaccount_id, account.user_id, stringifyAccountNum(account.account_num), account.total_amount, account.account_type);
+            bankAccounts.add(accountDTO);
+        }
+
+        return bankAccounts;
     }
 
     @Override
-    public BankAccount attemptToCreateNewBankAccount(BankAccount newBankAccount) {
-        return _repo.createBankAccountRecord(newBankAccount);
+    public BankAccountDTO attemptToCreateNewBankAccount(BankAccountDTO newBankAccount) {
+        BankAccount newBankAccountRecord = new BankAccount(0, newBankAccount.user_id, accountNumGenerator(), newBankAccount.total_amount, newBankAccount.account_type);
+        newBankAccountRecord = _repo.createBankAccountRecord(newBankAccountRecord);
+
+        return new BankAccountDTO(newBankAccountRecord.bankaccount_id, newBankAccountRecord.user_id, stringifyAccountNum(newBankAccountRecord.account_num), newBankAccountRecord.total_amount, newBankAccountRecord.account_type);
     }
 
     @Override
-    public List<Transaction> getTransactionHistory(int bankAccountId) {
-        return _repo.getBankTransactions(bankAccountId);
+    public List<TransactionDTO> getTransactionHistory(int bankAccountId) {
+        List<TransactionDTO> transactions = new ArrayList<>();
+        List<Transaction> transactionsDB = _repo.getBankTransactions(bankAccountId);
+
+        for(Transaction record : transactionsDB) {
+            TransactionDTO transaction = new TransactionDTO(record.bankaccount_id, record.transaction_type, record.transaction_amount, record.transaction_date);
+            transactions.add(transaction);
+        }
+
+        return transactions;
     }
 
     @Override
-    public boolean attemptToCreateNewTransactionRecord(Transaction newTransaction) {
-        return _repo.createTransactionRecord(newTransaction);
+    public boolean attemptToCreateNewTransactionRecord(TransactionDTO newTransaction) {
+        Transaction newTransactionDB = new Transaction(0, newTransaction.bankaccount_id, newTransaction.transaction_type, newTransaction.transaction_amount, newTransaction.transaction_date);
+        return _repo.createTransactionRecord(newTransactionDB);
     }
 
     @Override
-    public boolean attemptToUpdateAccountBalance(BankAccount newAccountBalance) {
-        return _repo.updateBankAccountBalance(newAccountBalance);
+    public boolean attemptToUpdateAccountBalance(BankAccountDTO newAccountBalance) {
+        BankAccount newAccountBalanceDB = new BankAccount(newAccountBalance.bankaccount_id, newAccountBalance.user_id, 0, newAccountBalance.total_amount, newAccountBalance.account_type);
+        return _repo.updateBankAccountBalance(newAccountBalanceDB);
+    }
+
+    private long accountNumGenerator() {
+        Random randLong = new Random();
+        return randLong.nextLong(11111111, 999999999);
+    }
+
+    private String stringifyAccountNum(long accountNum) {
+        String longString = Long.toString(accountNum);
+        return "***** " + longString.substring(longString.length() - 4);
     }
 }

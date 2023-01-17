@@ -1,6 +1,6 @@
 package com.NBOBanking.repositories;
 
-import com.NBOBanking.models.UserDB;
+import com.NBOBanking.Entities.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.stereotype.Repository;
@@ -10,19 +10,19 @@ public class UserRepository implements IUserRepository {
 
     private EntityManagerFactory emFactory;
 
-    public UserDB getUserRecord(String username) {
+    public User getUserRecord(String username) {
 
         EntityManager em = emFactory.createEntityManager();
-        UserDB userDB = em.createQuery("SELECT u FROM Users u WHERE u.username = :username", UserDB.class).getSingleResult();
+        User userDB = em.createQuery("SELECT u FROM Users u WHERE u.username = :username", User.class).getSingleResult();
         em.getTransaction().commit();
 
         em.close();
         emFactory.close();
 
-        return new UserDB();
+        return new User();
     }
 
-    public UserDB createUserRecord(UserDB newUser) {
+    public User createUserRecord(User newUser) {
 
         EntityManager em = emFactory.createEntityManager();
         em.persist(newUser);
@@ -31,7 +31,7 @@ public class UserRepository implements IUserRepository {
         em.close();
         emFactory.close();
 
-        return new UserDB();
+        return new User();
     }
 
 }

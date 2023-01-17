@@ -1,7 +1,7 @@
 package com.NBOBanking.repositories;
 
-import com.NBOBanking.models.BankAccount;
-import com.NBOBanking.models.Transaction;
+import com.NBOBanking.Entities.BankAccount;
+import com.NBOBanking.Entities.Transaction;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.stereotype.Repository;

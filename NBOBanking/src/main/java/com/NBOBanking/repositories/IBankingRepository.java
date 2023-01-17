@@ -1,7 +1,7 @@
 package com.NBOBanking.repositories;
 
-import com.NBOBanking.models.BankAccount;
-import com.NBOBanking.models.Transaction;
+import com.NBOBanking.Entities.BankAccount;
+import com.NBOBanking.Entities.Transaction;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
