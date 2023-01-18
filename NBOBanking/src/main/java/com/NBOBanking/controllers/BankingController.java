@@ -19,7 +19,7 @@ public class BankingController {
     }
 
     /* /BankAccounts?userId={User's Bank Account id} */
-    @GetMapping("bankaccounts")
+    @GetMapping("accounts")
     @ResponseBody
     public List<BankAccountDTO> getBankAccounts(@RequestParam int userId)
     {
@@ -35,7 +35,7 @@ public class BankingController {
     }
 
     /* /New/BankAccount (BankAccount object) */
-    @PostMapping("new/bankaccount")
+    @PostMapping("new/account")
     @ResponseBody
     public BankAccountDTO createNewBankAccount(@RequestBody BankAccountDTO newBankAccount)
     {

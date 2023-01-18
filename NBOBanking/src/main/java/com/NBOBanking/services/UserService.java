@@ -24,6 +24,8 @@ public class UserService implements IUserService {
         // Check if user exists in database
         User checkUser = _repo.getUserRecord(username);
 
+        System.out.println(checkUser.username);
+
         if(checkUser != null) {
             if(hashFactory(password + checkUser.salt) == checkUser.password) {
                 UserDTO userData = new UserDTO(checkUser.user_id, checkUser.firstname, checkUser.lastname, checkUser.username, checkUser.password, checkUser.email);

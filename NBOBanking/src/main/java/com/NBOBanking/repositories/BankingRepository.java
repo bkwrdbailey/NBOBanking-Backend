@@ -2,85 +2,109 @@ package com.NBOBanking.repositories;
 
 import com.NBOBanking.Entities.BankAccount;
 import com.NBOBanking.Entities.Transaction;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 @Repository
 public class BankingRepository implements IBankingRepository {
-    
-    private EntityManagerFactory emFactory;
+    @Autowired
+    private EntityManager em;
 
     public boolean createTransactionRecord(Transaction newTransaction) {
+        try {
 
-        EntityManager em = emFactory.createEntityManager();
-        em.getTransaction().begin();
+            em.getTransaction().begin();
+            em.persist(newTransaction);
+            em.getTransaction().commit();
+            em.close();
 
-        em.persist(newTransaction);
+            return true;
 
-        em.getTransaction().commit();
-        em.close();
-        emFactory.close();
+        } catch(EntityExistsException ex) {
 
-        return false;
+            em.close();
+            return false;
+
+        }
     }
 
     public BankAccount createBankAccountRecord(BankAccount newBankAccount) {
+        try {
 
-        EntityManager em = emFactory.createEntityManager();
-        em.getTransaction().begin();
+            em.getTransaction().begin();
+            em.persist(newBankAccount);
+            em.getTransaction().commit();
 
-        em.persist(newBankAccount);
+        } catch(EntityExistsException ex) {
 
-        em.getTransaction().commit();
-        em.close();
-        emFactory.close();
+            em.close();
+            return new BankAccount();
 
-        return new BankAccount();
+        }
+
+
+        TypedQuery<BankAccount> query = em.createQuery("SELECT b FROM BankAccount b WHERE b.account_num = :account_num", BankAccount.class);
+
+        query.setParameter("account_num", newBankAccount.account_num);
+
+        try {
+
+            BankAccount currBankAccount = query.getSingleResult();
+            em.close();
+            return currBankAccount;
+
+        } catch(NoResultException ex) {
+
+            em.close();
+            return new BankAccount();
+
+        }
     }
 
     public List<Transaction> getBankTransactions(int bankAccountId) {
+        Query query = em.createQuery("SELECT t FROM Transaction t WHERE t.bankaccount_id = :bankAccountId", Transaction.class);
 
-        EntityManager em = emFactory.createEntityManager();
-        em.getTransaction().begin();
+        query.setParameter("bankAccountId", bankAccountId);
 
-        List<Transaction> transactions = em.createQuery("SELECT t FROM Transactions t WHERE t.bankaccount_id = :bankAccountId", Transaction.class).getResultList();
+        List<Transaction> transactions = (List<Transaction>) query.getResultList();
 
-        em.getTransaction().commit();
         em.close();
-        emFactory.close();
 
         return transactions;
     }
 
     public List<BankAccount> getBankAccounts(int userId) {
+        Query query = em.createQuery("SELECT ba FROM BankAccount ba WHERE ba.user_id = :userId", BankAccount.class);
 
-        EntityManager em = emFactory.createEntityManager();
-        em.getTransaction().begin();
+        query.setParameter("userId", userId);
 
-        List<BankAccount> bankAccounts = em.createQuery("SELECT ba FROM Bank_Accounts ba WHERE ba.user_id = :userId ", BankAccount.class).getResultList();
+        List<BankAccount> bankAccounts = (List<BankAccount>) query.getResultList();
 
-        em.getTransaction().commit();
         em.close();
-        emFactory.close();
 
         return bankAccounts;
     }
 
     public boolean updateBankAccountBalance(BankAccount updatedBalance) {
+        try {
 
-        EntityManager em = emFactory.createEntityManager();
-        BankAccount bankAccount = em.find(BankAccount.class, updatedBalance.bankaccount_id);
+            BankAccount bankAccount = em.find(BankAccount.class, updatedBalance.bankaccount_id);
 
-        em.getTransaction().begin();
-        bankAccount.total_amount = updatedBalance.total_amount;
-        em.getTransaction().commit();
+            em.getTransaction().begin();
+            bankAccount.total_amount = updatedBalance.total_amount;
+            em.merge(bankAccount);
+            em.getTransaction().commit();
 
-        em.close();
-        emFactory.close();
+            em.close();
+            return true;
 
-        return true;
+        } catch(IllegalArgumentException ex) {
+
+            em.close();
+            return false;
+
+        }
     }
 }

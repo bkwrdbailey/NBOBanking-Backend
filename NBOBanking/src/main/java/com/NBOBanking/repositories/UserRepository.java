@@ -1,37 +1,52 @@
 package com.NBOBanking.repositories;
 
 import com.NBOBanking.Entities.User;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class UserRepository implements IUserRepository {
-
-    private EntityManagerFactory emFactory;
+        @Autowired
+        private EntityManager em;
 
     public User getUserRecord(String username) {
 
-        EntityManager em = emFactory.createEntityManager();
-        User userDB = em.createQuery("SELECT u FROM Users u WHERE u.username = :username", User.class).getSingleResult();
-        em.getTransaction().commit();
+        TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class);
 
-        em.close();
-        emFactory.close();
+        query.setParameter("username", username);
 
-        return new User();
+        try {
+            User checkUser = query.getSingleResult();
+
+            em.close();
+
+            return checkUser;
+
+        } catch(NoResultException ex) {
+            em.close();
+
+            return new User();
+        }
     }
+
 
     public User createUserRecord(User newUser) {
 
-        EntityManager em = emFactory.createEntityManager();
-        em.persist(newUser);
-        em.getTransaction().commit();
+        try {
+            em.getTransaction().begin();
+            em.persist(newUser);
+            em.getTransaction().commit();
 
-        em.close();
-        emFactory.close();
+            em.close();
 
-        return new User();
+            return getUserRecord(newUser.username);
+
+        } catch (EntityExistsException ex) {
+            em.close();
+
+            return new User();
+        }
     }
 
 }

@@ -3,7 +3,7 @@ package com.NBOBanking.Entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Bank_Accounts")
+@Table(name = "bank_accounts")
 public class BankAccount {
 
     @Id
