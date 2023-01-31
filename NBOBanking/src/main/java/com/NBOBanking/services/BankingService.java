@@ -42,7 +42,7 @@ public class BankingService implements IBankingService{
 
     @Override
     public BankAccountDTO attemptToCreateNewBankAccount(BankAccountDTO newBankAccount) {
-        BankAccount newBankAccountRecord = new BankAccount(0, newBankAccount.user_id, accountNumGenerator(), newBankAccount.total_amount, newBankAccount.account_type);
+        BankAccount newBankAccountRecord = new BankAccount(newBankAccount.user_id, accountNumGenerator(), newBankAccount.total_amount, newBankAccount.account_type);
         newBankAccountRecord = _repo.createBankAccountRecord(newBankAccountRecord);
 
         return new BankAccountDTO(newBankAccountRecord.bankaccount_id, newBankAccountRecord.user_id, stringifyAccountNum(newBankAccountRecord.account_num), newBankAccountRecord.total_amount, newBankAccountRecord.account_type);
@@ -68,7 +68,7 @@ public class BankingService implements IBankingService{
 
     @Override
     public boolean attemptToCreateNewTransactionRecord(TransactionDTO newTransaction) {
-        Transaction newTransactionDB = new Transaction(0, newTransaction.bankaccount_id, newTransaction.transaction_type, newTransaction.transaction_amount, newTransaction.transaction_date);
+        Transaction newTransactionDB = new Transaction(newTransaction.bankaccount_id, newTransaction.transaction_type, newTransaction.transaction_amount, newTransaction.transaction_date);
         return _repo.createTransactionRecord(newTransactionDB);
     }
 
@@ -85,6 +85,6 @@ public class BankingService implements IBankingService{
 
     private String stringifyAccountNum(long accountNum) {
         String longString = Long.toString(accountNum);
-        return "***** " + longString.substring(longString.length() - 4);
+        return longString.substring(longString.length() - 4);
     }
 }

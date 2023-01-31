@@ -34,4 +34,11 @@ public class BankAccount {
         this.total_amount = total_amount;
         this.account_type = account_type;
     }
+
+    public BankAccount(int user_id, long account_num, double total_amount, String account_type) {
+        this.user_id = user_id;
+        this.account_num = account_num;
+        this.total_amount = total_amount;
+        this.account_type = account_type;
+    }
 }
