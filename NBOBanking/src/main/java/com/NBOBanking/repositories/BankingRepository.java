@@ -12,9 +12,13 @@ public class BankingRepository implements IBankingRepository {
     @Autowired
     private EntityManager em;
 
+    @Autowired
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("employee-registrar");
+
     public boolean createTransactionRecord(Transaction newTransaction) {
         try {
 
+            em = emf.createEntityManager();
             em.getTransaction().begin();
             em.persist(newTransaction);
             em.getTransaction().commit();
@@ -30,9 +34,11 @@ public class BankingRepository implements IBankingRepository {
         }
     }
 
+    // Issue on Postman when trying to add new account
     public BankAccount createBankAccountRecord(BankAccount newBankAccount) {
         try {
 
+            em = emf.createEntityManager();
             em.getTransaction().begin();
             em.persist(newBankAccount);
             em.getTransaction().commit();
@@ -92,6 +98,7 @@ public class BankingRepository implements IBankingRepository {
 
             BankAccount bankAccount = em.find(BankAccount.class, updatedBalance.bankaccount_id);
 
+            em = emf.createEntityManager();
             em.getTransaction().begin();
             bankAccount.total_amount = updatedBalance.total_amount;
             em.merge(bankAccount);

@@ -7,8 +7,11 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class UserRepository implements IUserRepository {
-        @Autowired
-        private EntityManager em;
+    @Autowired
+    private EntityManager em;
+
+    @Autowired
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("employee-registrar");
 
     public User getUserRecord(String username) {
 
@@ -34,6 +37,7 @@ public class UserRepository implements IUserRepository {
     public User createUserRecord(User newUser) {
 
         try {
+            em = emf.createEntityManager();
             em.getTransaction().begin();
             em.persist(newUser);
             em.getTransaction().commit();
