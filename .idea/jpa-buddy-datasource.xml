@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="JpbDataSourceConfig">
-    <data-sources>
-      <data-source id="ca93f481-918b-4dad-b65f-6f2250d6a306" name="Amazon RDS NBOBanking DB" url="jdbc:mysql://nbobanking.cvdkmmduahgm.us-east-1.rds.amazonaws.com:3306/NBOBanking?useSSL=false&amp;allowMultiQueries=true&amp;serverTimezone=UTC" driverClass="com.mysql.cj.jdbc.Driver" />
-    </data-sources>
-  </component>
-</project>
