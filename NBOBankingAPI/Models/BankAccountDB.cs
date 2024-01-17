@@ -1,5 +1,5 @@
 namespace NBOBankingAPI.Models;
 
-public class BankAccount {
-    
+public class BankAccountDB {
+
 }
