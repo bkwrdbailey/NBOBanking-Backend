@@ -6,7 +6,6 @@ namespace NBOBankingAPI.Controllers;
 [Route("[controller]")]
 [ApiController]
 public class UserController : ControllerBase {
-
     public UserController() {
 
     }
