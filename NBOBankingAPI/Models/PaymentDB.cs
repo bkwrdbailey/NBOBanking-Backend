@@ -1,9 +1,9 @@
 namespace NBOBankingAPI.Models;
 
 public class PaymentDB {
-    int? paymentId;
-    int? paymentPlanId;
-    float? amountPaid;
-    DateOnly paymentDate;
-    string? paymentMethod;
+    public int paymentId;
+    public int paymentPlanId;
+    public float amountPaid;
+    public DateOnly paymentDate;
+    public string? paymentMethod;
 }

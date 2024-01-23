@@ -1,8 +1,8 @@
 namespace NBOBankingAPI.Models;
 
 public class Transaction {
-    float? amount;
-    string? description;
-    string? sending;
-    string? receiving;
+    public float amount;
+    public string? description;
+    public string? sending;
+    public string? receiving;
 }

@@ -1,7 +1,7 @@
 namespace NBOBankingAPI.Models;
 
 public class PaymentPlan {
-    Boolean onAutoPay;
-    string? amountDue;
-    string? paymentDueDate;
+    public Boolean onAutoPay;
+    public string? amountDue;
+    public string? paymentDueDate;
 }

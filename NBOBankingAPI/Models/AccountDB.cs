@@ -1,9 +1,9 @@
 namespace NBOBankingAPI.Models;
 
 public class AccountDB {
-    int? accountId;
-    int? userId;
-    string? accountType;
-    string? accountNum;
-    float? accountBalance;
+    public int accountId;
+    public int userId;
+    public string? accountType;
+    public string? accountNum;
+    public float accountBalance;
 }

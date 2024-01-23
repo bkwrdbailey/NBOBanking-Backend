@@ -1,9 +1,9 @@
 namespace NBOBankingAPI.Models;
 
 public class Loan {
-    string? totalAmount;
-    int? loanLength;
-    string? loanType;
-    string? requestReason;
-    PaymentPlan? paymentPlan;
+    public string? totalAmount;
+    public int loanLength;
+    public string? loanType;
+    public string? requestReason;
+    public PaymentPlan? paymentPlan;
 }

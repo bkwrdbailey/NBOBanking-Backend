@@ -1,11 +1,11 @@
 namespace NBOBankingAPI.Models;
 
 public class User {
-    string? username;
-    string? fullName;
-    string? email;
-    string? homePhone;
-    string? personalPhone;
-    string? homeAddress;
-    string? mailingAddress;
+    public string? username;
+    public string? fullName;
+    public string? email;
+    public string? homePhone;
+    public string? personalPhone;
+    public string? homeAddress;
+    public string? mailingAddress;
 }
