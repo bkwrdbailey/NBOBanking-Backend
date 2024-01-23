@@ -1,7 +1,7 @@
 namespace NBOBankingAPI.Models;
 
 public class Payment {
-    long? amountPaid;
-    DateOnly datePaid;
-    string? paymentMethod;
+    public long amountPaid;
+    public DateOnly datePaid;
+    public string? paymentMethod;
 }

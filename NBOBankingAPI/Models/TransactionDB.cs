@@ -1,10 +1,10 @@
 namespace NBOBankingAPI.Models;
 
 public class TransactionDB {
-    int? transactionId;
-    int? accountId;
-    float? transactionAmount;
-    string? description;
-    string? sending;
-    string? receiving;
+    public int transactionId;
+    public int accountId;
+    public float transactionAmount;
+    public string? description;
+    public string? sending;
+    public string? receiving;
 }

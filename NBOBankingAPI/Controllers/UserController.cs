@@ -1,27 +1,29 @@
 using Microsoft.AspNetCore.Mvc;
 using NBOBankingAPI.Models;
+using NBOBankingAPI.Services;
 
 namespace NBOBankingAPI.Controllers;
 
 [Route("[controller]")]
 [ApiController]
 public class UserController : ControllerBase {
-    public UserController() {
-
+    private readonly IUserService _service;
+    public UserController(IUserService service) {
+        _service = service;
     }
 
-    [HttpPost("/new/user")]
+    [HttpPost("/user/signup")]
     public async Task<Boolean> PostNewUserAccount([FromBody] User newUserData) {
-        return await ;
+        return await _service.AddNewUserToDB(newUserData);
     }
 
     [HttpGet("/login/{username}/{password}")]
     public async Task<User> GetUserData(string username, string password) {
-        return await ;
+        return await _service.GetUserDataFromDB(username, password);
     }
 
     [HttpPut("/update/user")]
-    public async Task<User> PutUpdatedUserData([FromBody] User updatedUserData) {
-        return await ;
+    public async Task<Boolean> PutModifiedUserData([FromBody] User updatedUserData) {
+        return await _service.UpdateUserDataInDB(updatedUserData);
     }
 }
